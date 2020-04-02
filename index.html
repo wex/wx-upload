@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Image Upload Widget</title>
+    <style>
+      wx-upload {
+        display: inline-block;
+      }
+    </style>
+  </head>
+  <body>
+
+    <form method="post" action="http://127.0.0.1/debug.php" enctype="multipart/form-data">
+      
+      <wx-upload remove placeholder="Valitse kuva"></wx-upload>
+      
+      <button name="save" value="1" type="submit">Test</button>
+    
+    </form>
+    
+
+  </body>
+</html>
