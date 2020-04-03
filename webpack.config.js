@@ -53,11 +53,9 @@ module.exports = {
   },
   plugins: [
     new uglifyJsPlugin(),
-    /*
     new HTMLWebpackPlugin({
       template: path.resolve(__dirname, 'index.html'),
     }),
-    */
     new webpack.HotModuleReplacementPlugin(),
   ],
 };

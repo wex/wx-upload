@@ -27,42 +27,6 @@ class WxUpload extends HTMLElement {
     shadowDOM.appendChild(template.content.cloneNode(true));
   }
 
-  static get observedAttributes() 
-  {
-    return ['valid', 'invalid'];
-  }
-
-  attributeChangedCallback(name, prev, next)
-  {
-    console.log( name );
-    console.log( prev );
-    console.log( next );
-
-    switch (name) {
-
-      case 'invalid':
-        this.classList.remove('is-valid');
-        
-        if (next === null) {
-          this.classList.remove('is-invalid');
-        } else {
-          this.classList.add('is-invalid');
-        }
-        return;
-
-      case 'valid':
-        this.classList.remove('is-invalid');
-
-        if (next === null) {
-          this.classList.remove('is-valid');
-        } else {
-          this.classList.add('is-valid');
-        }
-        return;
-
-    }
-  }
-  
   connectedCallback() 
   {
     // remove::click
@@ -101,17 +65,37 @@ class WxUpload extends HTMLElement {
     const container = this.shadowRoot.querySelector('.wx-upload');
 
     if (input.files && input.files[0]) {
+
       let reader = new FileReader();
+
       reader.onload = (ev) => {
         preview.src = ev.target.result;
         this.classList.add('has-image');
         container.classList.add("has-image");
       };
+
       reader.readAsDataURL( input.files[0] );
+
+      this.dispatchEvent(new CustomEvent(
+        'change',
+        {
+          "detail": input.files[0],
+        }
+      ));
+
     } else {
+
       preview.src = "";
       this.classList.remove('has-image');
       container.classList.remove("has-image");
+
+      this.dispatchEvent(new CustomEvent(
+        'change',
+        {
+          "detail": false,
+        }
+      ));
+
     }
   }
 
@@ -140,6 +124,13 @@ class WxUpload extends HTMLElement {
 
     container.classList.remove("has-image");
     this.classList.remove('has-image');
+
+    this.dispatchEvent(new CustomEvent(
+      'change',
+      {
+        "detail": false,
+      }
+    ));
   }
 }
 
