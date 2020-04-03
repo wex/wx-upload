@@ -1,6 +1,10 @@
 # wx-upload
 WebComponent to handle image uploads with browse preview.
 
+## Demo
+
+See: https://wex.fi/wx/wx-upload.html
+
 ## Installing
 
 Download latest release and use it.
